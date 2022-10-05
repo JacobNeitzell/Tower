@@ -21,6 +21,15 @@ class EventsService {
     return event
   }
 
+  async getEventIfNotCancelled(eventId) {
+    const event = await this.getEventById(eventId)
+    if (event.isCanceled) {
+      throw new BadRequest('This event is cancelled')
+    }
+    return event
+
+
+  }
 
   async cancelEvent(eventId, userId) {
     const event = await this.getEventById(eventId)
@@ -39,7 +48,7 @@ class EventsService {
 
     // @ts-ignore
     if (userInfo.id != event.creatorId.toString()) { throw new Forbidden('Not your event please access your own event.') }
-
+    if (event.isCanceled == true) { throw new BadRequest('this event is Canceled') }
     event.name = eventData.name || event.name
     event.description = eventData.description || event.description
 
