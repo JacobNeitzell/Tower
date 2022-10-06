@@ -6,7 +6,6 @@ export class Ticketscontroller extends BaseController {
   constructor() {
     super('api/tickets')
     this.router
-      .get('', this.getTicketByProfileId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTicket)
   }
@@ -24,16 +23,6 @@ export class Ticketscontroller extends BaseController {
 
 
 
-  async getTicketByProfileId(req, res, next) {
-    try {
-      const ticket = await ticketsService.getTicketByProfileId(req.params.eventId)
-      res.send(ticket)
-    } catch (error) {
-      next(error)
-    }
-
-
-  }
 
 
 

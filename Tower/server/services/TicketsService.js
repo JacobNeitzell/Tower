@@ -1,3 +1,4 @@
+import { BadRequest } from "@bcwdev/auth0provider/lib/Errors.js"
 import { dbContext } from "../db/DbContext.js"
 import { eventsService } from "./EventsService.js"
 
@@ -6,14 +7,21 @@ class TicketsService {
 
   async getMyTickets(accountId) {
     const ticket = await dbContext.Ticket.find({ accountId }).populate('profile', 'name picture')
-      .populate('towerEvents', 'title coverimg')
+      .populate('event')
+    if (!ticket) {
+      throw new BadRequest(
+        'Invalid or Bad ticket Id'
+      )
+    }
+
     return ticket
   }
 
-  async getTicketByProfileId(eventId, accountId) {
-    const ticket = await dbContext.Ticket.findOne({ eventId, accountId })
+
+  async getTicketByEvent(event) {
+    const ticket = await dbContext.Ticket.find({ event })
       .populate('profile', 'name picture')
-      .populate('towerEvent', 'title coverimg ')
+      .populate('event')
     return ticket
   }
 
