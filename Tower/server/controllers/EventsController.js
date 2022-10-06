@@ -67,6 +67,8 @@ export class EventsController extends BaseController {
   async getTicketByEvent(req, res, next) {
     try {
       const eventData = req.body
+      eventData.id = req.eventId
+
       const ticket = await ticketsService.getTicketByEvent(eventData)
       res.send(ticket)
     } catch (error) {
