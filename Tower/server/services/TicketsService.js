@@ -49,6 +49,8 @@ class TicketsService {
 
   async createTicket(ticketData) {
     const event = await eventsService.getEventIfNotCancelled(ticketData.eventId)
+    // @ts-ignore
+    if (event.capacity == 0) { throw new BadRequest('event is full sorry') }
     const ticket = await dbContext.Ticket.create(ticketData)
     // @ts-ignore
     event.capacity--

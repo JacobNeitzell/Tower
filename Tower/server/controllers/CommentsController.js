@@ -9,12 +9,13 @@ export class CommentsController extends BaseController {
 
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createComment)
-      .delete(':commentId', this.deleteComment)
+      .delete('/:commentId', this.deleteComment)
 
   }
 
   async deleteComment(req, res, next) {
     try {
+
       await commentsService.deleteComment(req.params.commentId, req.userInfo.id)
       res.send("Comment is deleted ")
     } catch (error) {

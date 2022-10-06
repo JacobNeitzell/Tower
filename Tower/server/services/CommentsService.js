@@ -29,9 +29,9 @@ class CommentsService {
       throw new Forbidden("this is not your comment")
     }
     // @ts-ignore
-    await comment.populate('profile', 'name picture')
+    await comment.populate('creator')
     // @ts-ignore
-    await comment.remove()
+    comment.remove(commentId)
     event.save()
     return comment
   }
