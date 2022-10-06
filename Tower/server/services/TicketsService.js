@@ -1,4 +1,4 @@
-import { BadRequest } from "@bcwdev/auth0provider/lib/Errors.js"
+import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors.js"
 import { dbContext } from "../db/DbContext.js"
 import { eventsService } from "./EventsService.js"
 
@@ -18,11 +18,32 @@ class TicketsService {
   }
 
 
-  async getTicketByEvent(eventData) {
-    const ticket = await dbContext.Ticket.find({ eventData })
+  async getTicketByEvent(eventId) {
+    const ticket = await dbContext.Ticket.find({ eventId })
       .populate('profile', 'name picture')
       .populate('event')
     return ticket
+  }
+
+  async deleteTicket(ticketId, userId) {
+    const ticket = await dbContext.Ticket.findById(ticketId)
+    // @ts-ignore
+    const event = await eventsService.getEventById(ticket.eventId)
+    // @ts-ignore
+    if (userId != ticket.accountId.toString()) {
+      throw new Forbidden("This is not your ticket Charlie!")
+    }
+
+    // @ts-ignore
+    await ticket.populate('profile', 'name picture')
+    // @ts-ignore
+    await ticket.remove()
+
+    // @ts-ignore
+    event.capacity++
+    event.save()
+    return ticket
+
   }
 
 
