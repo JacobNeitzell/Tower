@@ -1,14 +1,10 @@
 <template>
   <div class="EventDetailsPage container-fluid">
-    <div class="d-flex flex-column align-items-center">
-      <img alt="logo" src="../assets/img/pixil-frame-0 (1).png" height="50" />
-    </div>
-    <h5 class="text-shadow">TOWER</h5>
-    <div class="row" v-if="event">
-      <EventDeets v-for="e in events" :key="e.id" :event="e" />
+    <div class="row">
+      <EventDeets :event="activeEvent" />
     </div>
     <div class="row">
-      <!-- <AttendeeCard v-for="a in attendee" :key="a.id" :attendee="a" /> -->
+      <AttendeeCard v-for="a in attendees" :key="a.id" :attendee="a" />
     </div>
   </div>
 </template>
@@ -54,9 +50,9 @@ export default {
       getAttendees();
     });
     return {
-      activeEvents: computed(() => AppState.activeEvent),
+      activeEvent: computed(() => AppState.activeEvent),
       attendees: computed(() => AppState.attendees),
-      events: computed(() => AppState.events)
+      event: computed(() => AppState.events)
 
     };
   },

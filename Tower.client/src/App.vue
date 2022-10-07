@@ -3,12 +3,13 @@
     <Navbar />
   </header>
   <main class="main-background container-fluid">
-    <router-view />
     <div class="row">
-      <div class="col-md-2 d-none d-md-block bg-dark text-light sidebar">
-        <!-- <LoginOffCan /> -->
+      <div class=" justify-content-end d-none d-md-block bg-dark text-light sidebar">
+        <LoginOffCan />
+
       </div>
     </div>
+    <router-view />
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">

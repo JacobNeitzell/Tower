@@ -1,6 +1,8 @@
 <template>
-  <div class="col-12 Attendee-Card">
-    <span>{{attendees.name}}{{attendees.picture}}</span>
+  <div class="col-auto Attendee-Card">
+    <!-- 
+    <img :src="attendee.picture" :title="attendee.name"> -->
+    {{attendee}}
 
   </div>
 </template>
@@ -11,7 +13,7 @@ import { Attendee } from "../models/Attendee.js";
 
 export default {
   props: {
-    attendees: { type: Attendee, required: true },
+    attendee: { type: Object, required: true },
   },
   setup() {
     return {}

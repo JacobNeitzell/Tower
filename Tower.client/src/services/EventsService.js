@@ -1,5 +1,7 @@
 import { AppState } from "../AppState.js"
 import { TowerEvent } from "../models/TowerEvent.js"
+import { router } from "../router.js"
+import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class EventService {
@@ -19,14 +21,22 @@ class EventService {
 
   async getEventsById(id) {
     const res = await api.get(`/api/events/${id}`)
-    AppState.activeEvent = new TowerEvent(res.data)
+    AppState.activeEvent = res.data
+    logger.log(res.data)
   }
+
+
+
+
 
 
   async createEvents(eventData) {
     const res = await api.post('api/events', eventData)
-    const event = new Event(res.data)
+    const event = new TowerEvent(res.data)
+    AppState.events.push(event)
     AppState.events = [...AppState.events, event]
+    AppState.activeEvent = event
+
 
   }
 
