@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="main-background">
     <router-view />
   </main>
   <footer>
@@ -28,4 +28,8 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+
+.main-background {
+  background-color: #2A2D3A;
+}
 </style>

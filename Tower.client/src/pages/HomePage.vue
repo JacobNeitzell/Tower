@@ -1,9 +1,10 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-around">
       <EventCard v-for="e in events" :key="e.id" :event="e" />
     </div>
   </div>
+
 </template>
 
 <script>

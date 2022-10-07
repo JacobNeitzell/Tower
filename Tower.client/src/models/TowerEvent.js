@@ -11,4 +11,5 @@ export class TowerEvent {
     this.isCanceled = data.isCanceled
     this.type = data.type
   }
+
 }
