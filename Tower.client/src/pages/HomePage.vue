@@ -9,7 +9,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted, ref } from "vue";
+import { onMounted, } from "vue";
 import { AppState } from "../AppState.js";
 import EventCard from "../components/EventCard.vue";
 import { eventservice } from "../services/EventsService.js";

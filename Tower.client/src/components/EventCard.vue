@@ -12,8 +12,12 @@
             <span class="">{{event.capacity}} Spots left</span>
           </div>
           <div>
-            <a href="#" class="btn btn-primary">Go to Event</a>
+            <router-link :to="{name:'EventDetails', params:{id: event.id}}"
+              class="btn text-success ligthen-30 selectable text-uppercase">
+              Go to Event
+            </router-link>
           </div>
+
         </div>
       </div>
     </div>
@@ -23,11 +27,17 @@
 
 <script>
 
+import { TowerEvent } from "../models/TowerEvent.js";
+
+
+
 export default {
   props: {
-    event: { type: Object, required: true }
+    event: { type: TowerEvent, required: true }
   },
   setup() {
+
+
     return {}
   }
 }

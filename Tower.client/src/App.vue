@@ -6,13 +6,13 @@
     <router-view />
     <div class="row">
       <div class="col-md-2 d-none d-md-block bg-dark text-light sidebar">
-        <LoginOffCan />
+        <!-- <LoginOffCan /> -->
       </div>
     </div>
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+      Made with Giraffe works
     </div>
   </footer>
 </template>
