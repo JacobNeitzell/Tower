@@ -2,7 +2,6 @@
   <div class="col-auto Attendee-Card">
     <!-- 
     <img :src="attendee.picture" :title="attendee.name"> -->
-    {{attendee}}
 
   </div>
 </template>

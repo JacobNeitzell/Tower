@@ -17,9 +17,10 @@ import AttendeeCard from "../components/AttendeeCard.vue";
 import { attendeesService } from "../services/AttendeesService.js";
 import { eventservice } from "../services/EventsService.js";
 import Pop from "../utils/Pop.js";
-import { onMounted } from "vue";
+import { onMounted, } from "vue";
 import { AppState } from "../AppState.js";
 import { useRoute } from "vue-router";
+import { AuthService } from "../services/AuthService.js";
 
 export default {
   setup() {
@@ -52,7 +53,21 @@ export default {
     return {
       activeEvent: computed(() => AppState.activeEvent),
       attendees: computed(() => AppState.attendees),
-      event: computed(() => AppState.events)
+      event: computed(() => AppState.events),
+
+      async addTicket() {
+        try {
+          if (!AppState.account.id) {
+            return AuthService.loginWithRedirect()
+          }
+          await attendeesService.addTicket({ eventId: AppState.activeEvent.id || route.params.id })
+          Pop.success('Ticket has been grabbed')
+        } catch (error) {
+          Pop.error(error, ['CreateTicket'])
+        }
+      }
+
+
 
     };
   },

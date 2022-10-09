@@ -1,7 +1,7 @@
 <template>
-  <div class="col-12 d-flex justify-content-center">
-    <div class="eventdeetsCard">
-      <div class="card bg-dark elevate-5" style="width: 18rem;">
+  <div class="eventdeetsCard">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="card bg-dark elevate-5" style="width: 540px;">
         <img :src="event?.coverImg" class="card-img-top" alt="EventDetailsImg">
         <div class="card-body">
           <h3 class="card-title text-shadow2">{{event?.name}}</h3>
@@ -9,9 +9,11 @@
           Date(event?.startDate).toLocaleDateString('en-Us',{month:'short', day:'2-digit'})}}</h5>
           <p class="card-text text-shadow">{{event?.description}}
           </p>
-          <div class="d-flex justify-content-between text-shadow"><span>{{event?.capacity}}Spots Left</span>
-            <div><span>{{event?.type}}</span></div>
-            <a href="#" class="btn btn-primary">Attend</a>
+          <div class="d-flex justify-content-between text-shadow"><span>{{event?.capacity}} <p>Spots Left</p></span>
+            <span>{{event?.type}}</span>
+            <div>
+              <a href="#" class="btn btn-primary">Attend</a>
+            </div>
           </div>
         </div>
       </div>

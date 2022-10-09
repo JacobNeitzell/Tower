@@ -37,7 +37,7 @@ class EventService {
     AppState.events = [...AppState.events, event]
     AppState.activeEvent = event
 
-
+    router.push({ name: 'EventDetails', params: { id: event.id } })
   }
 
 

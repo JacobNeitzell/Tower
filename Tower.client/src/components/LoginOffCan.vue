@@ -13,7 +13,7 @@
       id="eventCanvasLabel" aria-labelledby="eventCanvasLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="eventCanvasLabel">New Event</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close bg-danger" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <CreateEventCard />
