@@ -6,7 +6,13 @@
     <div class="row">
       <AttendeeCard v-for="a in attendees" :key="a.id" :attendee="a" />
     </div>
+    <div class="row">
+
+      <CommentForm />
+      <CommentCard v-for="c in comments" :key="c.id" :comments="c" />
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -21,6 +27,10 @@ import { onMounted, } from "vue";
 import { AppState } from "../AppState.js";
 import { useRoute } from "vue-router";
 import { AuthService } from "../services/AuthService.js";
+import CommentForm from "../components/CommentForm.vue";
+
+import { commentsService } from "../services/CommentsService.js";
+import CommentCard from "../components/CommentCard.vue";
 
 export default {
   setup() {
@@ -32,6 +42,17 @@ export default {
       } catch (error) {
         Pop.error(error, "[getEvents]")
       }
+    }
+
+    async function getCommentsByEventId() {
+      try {
+
+        await commentsService.getComments(route.params.id)
+      } catch (error) {
+        Pop.error(error, "[GettingComments]")
+      }
+
+
     }
 
 
@@ -49,11 +70,14 @@ export default {
     onMounted(() => {
       getEventsById();
       getAttendees();
+      getCommentsByEventId();
     });
     return {
       activeEvent: computed(() => AppState.activeEvent),
       attendees: computed(() => AppState.attendees),
       event: computed(() => AppState.events),
+      account: computed(() => AppState.account),
+      comments: computed(() => AppState.comments),
 
       async addTicket() {
         try {
@@ -65,15 +89,19 @@ export default {
         } catch (error) {
           Pop.error(error, ['CreateTicket'])
         }
-      }
+      },
+
+
 
 
 
     };
   },
-  components: { EventDeets, AttendeeCard }
+  components: { EventDeets, AttendeeCard, CommentForm, CommentCard }
 }
 </script>
 <style lang="sccs" scoped>
+
+
 
 </style>

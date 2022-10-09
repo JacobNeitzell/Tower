@@ -1,5 +1,6 @@
 
 import { AppState } from "../AppState.js"
+import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 
 class AttendeesService {
@@ -10,8 +11,9 @@ class AttendeesService {
 
   async addTicket(eventData) {
     const res = await api.post('/api/tickets', eventData)
-    const attendees = res.data
-    AppState.attendees.push(attendees)
+    const isAttending = res.data
+    AppState.isAttending.push(isAttending)
+    logger.log(res.data)
   }
 
   async removeTicket(attendeeId) {

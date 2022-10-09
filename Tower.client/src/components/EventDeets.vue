@@ -1,7 +1,7 @@
 <template>
   <div class="eventdeetsCard">
-    <div class="col-12 d-flex justify-content-center">
-      <div class="card bg-dark elevate-5" style="width: 540px;">
+    <div class="col-12 d-flex justify-content-center elevation-3">
+      <div class="card bg-dark " style="width:30rem;">
         <img :src="event?.coverImg" class="card-img-top" alt="EventDetailsImg">
         <div class="card-body">
           <h3 class="card-title text-shadow2">{{event?.name}}</h3>
@@ -12,7 +12,7 @@
           <div class="d-flex justify-content-between text-shadow"><span>{{event?.capacity}} <p>Spots Left</p></span>
             <span>{{event?.type}}</span>
             <div>
-              <a href="#" class="btn btn-primary">Attend</a>
+              <a class="btn btn-primary" @click="addTicket()">Attend</a>
             </div>
           </div>
         </div>
@@ -24,14 +24,33 @@
 
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
 import { TowerEvent } from "../models/TowerEvent.js";
 
 export default {
   props: {
     event: { type: TowerEvent, required: true },
+
   },
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account),
+      isAttending: computed(() => AppState.isAttending.find(a => a.accountId == AppState.account.id)),
+      attendees: computed(() => AppState.attendees),
+
+      async addTicket() {
+        try {
+          if (!AppState.account.id) {
+            return AuthService.loginWithRedirect()
+          }
+          await attendeesService.addTicket({ eventId: AppState.activeEvent.id || route.params.id })
+          Pop.success('Ticket has been grabbed')
+        } catch (error) {
+          Pop.error(error, ['CreateTicket'])
+        }
+      }
+    }
   }
 
 }
@@ -51,13 +70,5 @@ export default {
   text-shadow: 1px 1px black, 0px 0px 5px rgb(6, 206, 220);
   font-weight: bold;
   letter-spacing: 0.08rem
-}
-
-
-
-img {
-  max-width: 400px;
-  max-height: 400px;
-  object-fit: contain;
 }
 </style>

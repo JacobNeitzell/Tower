@@ -3,11 +3,20 @@ import { api } from "./AxiosService.js"
 
 class CommentsService {
 
-  async getComments() {
-    const res = await api.get(`/api//api/events/${id}/comments`)
+  async getComments(eventId) {
+    const res = await api.get(`/api/events/${eventId}/comments`)
     AppState.comments = res.data
   }
 
+
+  async createComments(eventData) {
+    const res = await api.post('/api/comments', eventData)
+    const comment = new Comment(res.data)
+    AppState.comments.push(comment)
+    AppState.comments = [...AppState.comments, comment]
+
+
+  }
 
 
 }

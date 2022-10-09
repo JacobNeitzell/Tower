@@ -22,7 +22,7 @@ class EventService {
   async getEventsById(id) {
     const res = await api.get(`/api/events/${id}`)
     AppState.activeEvent = res.data
-    logger.log(res.data)
+
   }
 
 
