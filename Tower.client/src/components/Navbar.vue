@@ -49,7 +49,6 @@ export default {
       events: computed(() => AppState.events.filter(e => e.type.toUpperCase().includes(editable.value.toUpperCase()))),
       async getEventsbyType(type) {
         try {
-          debugger
           await eventservice.getEvents(type)
         } catch (error) {
           Pop.error(error, '[GetEventsByType]')

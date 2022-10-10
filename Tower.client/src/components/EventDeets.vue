@@ -18,7 +18,7 @@
             <div>
               <a class="btn btn-primary" v-if="event?.capacity > 0 && !event?.isCanceled && !isAttending"
                 @click="addTicket()">Attend</a>
-              <a class="btn btn-danger" v-else="event?.isCanceled ">Attending</a>
+
             </div>
           </div>
         </div>
