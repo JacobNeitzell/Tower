@@ -18,14 +18,14 @@
         <div class="col-12 text-shadow">
           filter <i class="mdi mdi-filter"></i>
         </div>
-        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('')">All</div>
-        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('concert')">Concert
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType('')">All</div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType('concert')">Concert
         </div>
-        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('convention')">
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType('convention')">
           Convention</div>
-        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('sport')">Sport
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType('sport')">Sport
         </div>
-        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('digital')">Digital
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType('digital')">Digital
         </div>
 
       </div>
@@ -49,6 +49,7 @@ export default {
       events: computed(() => AppState.events.filter(e => e.type.toUpperCase().includes(editable.value.toUpperCase()))),
       async getEventsbyType(type) {
         try {
+          debugger
           await eventservice.getEvents(type)
         } catch (error) {
           Pop.error(error, '[GetEventsByType]')
