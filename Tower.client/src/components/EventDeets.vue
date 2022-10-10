@@ -27,6 +27,9 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import { TowerEvent } from "../models/TowerEvent.js";
+import { attendeesService } from "../services/AttendeesService.js";
+import { AuthService } from "../services/AuthService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   props: {

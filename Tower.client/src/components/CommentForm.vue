@@ -6,7 +6,7 @@
       <div>
         <label for="body" class="text-shadow">Body:</label>
         <textarea type="text" class="form-control" rows="8" style="resize:none" v-model="editable.body"
-          :name="body "></textarea>
+          :name="editable.body"></textarea>
       </div>
       <button class="btn btn-dark text-shadow">Submit</button>
     </div>
@@ -18,10 +18,14 @@
 
 <script>
 import { ref } from "vue"
+import { useRoute } from "vue-router"
+import { AppState } from "../AppState.js"
 import { commentsService } from "../services/CommentsService.js"
+import Pop from "../utils/Pop.js"
 
 export default {
   setup() {
+    const route = useRoute()
     const editable = ref({
       body: "",
 
@@ -31,8 +35,9 @@ export default {
 
       async handleSubmit() {
         try {
-          const eventData = editable.value
-          await commentsService.createComments(eventData)
+          const commentData = editable.value
+          commentData.eventId = AppState.activeEvent
+          await commentsService.createComments(commentData)
           editable.value = {
             body: {},
 

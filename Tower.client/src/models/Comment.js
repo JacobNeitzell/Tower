@@ -5,5 +5,6 @@ export class Comment {
     this.creatorId = data.creatorId
     this.body = data.body
     this.isAttending = data.isAttending
+    this.creator = data.creator
   }
 }

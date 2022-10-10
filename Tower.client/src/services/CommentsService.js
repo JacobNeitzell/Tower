@@ -9,15 +9,17 @@ class CommentsService {
   }
 
 
-  async createComments(eventData) {
-    const res = await api.post('/api/comments', eventData)
+  async createComments(commentData) {
+    const res = await api.post('/api/comments', commentData)
     const comment = new Comment(res.data)
     AppState.comments.push(comment)
-    AppState.comments = [...AppState.comments, comment]
-
 
   }
 
+  async removeComments(commentId) {
+    await api.delete('api/comments/' + commentId)
+    AppState.comments = AppState.comments.filter(c => c.id != comments)
+  }
 
 }
 export const commentsService = new CommentsService

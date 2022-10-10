@@ -3,33 +3,51 @@
     <div class="card mb-3 bg-dark" style="max-width: 540px;">
       <div class="row g-0 bg-dark">
         <div class="col-md-4 commenttext">
-          <img :src="account?.picture" class="img-fluid rounded-start" alt="">
+          <img :src="comments.creator.picture" class="img-fluid rounded-start" alt="">
         </div>
-        <div class="col-md-8 commenttext">
-          <div class="card-body bg-dark">
-            <h5 class="card-title text-shadow2">{{comments?.name}}</h5>
-            <p class="card-text text-shadow ">{{comments?.body}}
-            </p>
-            <p class="card-text bg-dark"><small class="text-muted">{{comments?.isAttending}}</small></p>
-          </div>
+        <div class="col-md-8 commenttext ">
+
+          <h5 class="card-title text-shadow2">{{comments?.creator.name}}</h5>
+          <p class="card-text text-shadow ">{{comments?.body}}
+          </p>
+          <p class="card-text bg-dark"><small class="text-muted">{{comments?.isAttending}}</small></p>
+          <i @click="removeComments(comments.id)" class="mdi mdi-cancel selectable"></i>
         </div>
       </div>
     </div>
-
   </div>
+
+
 </template>
 
 
 <script>
+
+import { AppState } from "../AppState.js";
 import { Account } from "../models/Account.js";
 import { Comment } from "../models/Comment.js";
+import { commentsService } from "../services/CommentsService.js";
+import Pop from "../utils/Pop.js";
 export default {
   props: {
     comments: { type: Comment, required: true },
     account: { type: Account, required: true }
   },
   setup() {
-    return {}
+
+    return {
+
+      async removeComments(id) {
+        try {
+          const yes = await Pop.confirm('Are you sure you want to delete this comment?')
+          if (!yes) { return }
+          await commentsService.removeComments(id)
+          Pop.success('Comment Removed')
+        } catch (error) {
+          Pop.error(error, '[removeComments]')
+        }
+      }
+    }
   }
 }
 </script>

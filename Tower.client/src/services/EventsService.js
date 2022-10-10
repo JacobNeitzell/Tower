@@ -41,7 +41,12 @@ class EventService {
   }
 
 
-
+  async archiveEvent(id) {
+    await api.delete(`/api/events/${id}`)
+    AppState.events = AppState.events.filter(e => e.id != id)
+    AppState.activeEvent = null
+    router.push({ name: 'Home' })
+  }
 
 
 

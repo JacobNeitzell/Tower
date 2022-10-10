@@ -7,8 +7,9 @@
       <AttendeeCard v-for="a in attendees" :key="a.id" :attendee="a" />
     </div>
     <div class="row">
-
       <CommentForm />
+    </div>
+    <div class="row justify-content-center">
       <CommentCard v-for="c in comments" :key="c.id" :comments="c" />
     </div>
   </div>
@@ -23,7 +24,7 @@ import AttendeeCard from "../components/AttendeeCard.vue";
 import { attendeesService } from "../services/AttendeesService.js";
 import { eventservice } from "../services/EventsService.js";
 import Pop from "../utils/Pop.js";
-import { onMounted, } from "vue";
+import { onMounted, watchEffect, } from "vue";
 import { AppState } from "../AppState.js";
 import { useRoute } from "vue-router";
 import { AuthService } from "../services/AuthService.js";
@@ -65,7 +66,9 @@ export default {
       }
     }
 
-
+    watchEffect(async () => {
+      await commentsService.getComments(route.params.id)
+    })
 
     onMounted(() => {
       getEventsById();
@@ -79,17 +82,9 @@ export default {
       account: computed(() => AppState.account),
       comments: computed(() => AppState.comments),
 
-      async addTicket() {
-        try {
-          if (!AppState.account.id) {
-            return AuthService.loginWithRedirect()
-          }
-          await attendeesService.addTicket({ eventId: AppState.activeEvent.id || route.params.id })
-          Pop.success('Ticket has been grabbed')
-        } catch (error) {
-          Pop.error(error, ['CreateTicket'])
-        }
-      },
+
+
+
 
 
 
