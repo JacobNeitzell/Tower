@@ -7,6 +7,7 @@
         <div class="card-body">
           <i class="mdi mdi-cancel bg-danger" @click="archiveEvent(event.id)"
             v-if="event?.creator.id == account.id"></i>
+          <a class="btn btn-danger" v-else="event?.isCanceled ">Canceled</a>
           <h3 class="card-title text-shadow2">{{event?.name}}</h3>
           <h5 class="text-shadow">{{new
           Date(event?.startDate).toLocaleDateString('en-Us',{month:'short', day:'2-digit'})}}</h5>
