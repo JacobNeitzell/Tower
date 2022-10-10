@@ -4,7 +4,7 @@
       <EventDeets :event="activeEvent" />
     </div>
     <div class="row">
-      <AttendeeCard v-for="a in attendees" :key="a.id" :attendee="a" />
+      <AttendeeCard v-for="a in attendees" :key="a.id" :attendees="a" />
     </div>
     <div class="row">
       <CommentForm />
@@ -68,6 +68,7 @@ export default {
 
     watchEffect(async () => {
       await commentsService.getComments(route.params.id)
+
     })
 
     onMounted(() => {
@@ -81,7 +82,7 @@ export default {
       event: computed(() => AppState.events),
       account: computed(() => AppState.account),
       comments: computed(() => AppState.comments),
-
+      isAttending: computed(() => AppState.isAttending)
 
 
 

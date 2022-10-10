@@ -1,6 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-auto p-3 mb-3">
     <div class="eventsCard">
+
       <div class="card elevation-3 bg-dark" style="width: 18rem;">
         <img :src="event.coverImg" class="card-img-top" alt="EventImg">
         <div class="card-body">
@@ -9,7 +10,10 @@
           Date(event.startDate).toLocaleDateString('en-Us',{month:'short', day:'2-digit'})}}</span>
           </p>
           <div class="d-flex justify-content-end text-shadow">
-            <span class="">{{event.capacity}} Spots left</span>
+            <span>{{event.capacity}} Spots left</span>
+          </div>
+          <div>
+            <span>{{event.type}}</span>
           </div>
           <div>
             <router-link :to="{name:'EventDetails', params:{id: event.id}}"
@@ -27,7 +31,11 @@
 
 <script>
 
+
+import { AppState } from "../AppState.js";
 import { TowerEvent } from "../models/TowerEvent.js";
+import { eventservice } from "../services/EventsService.js";
+import Pop from "../utils/Pop.js";
 
 
 
@@ -38,7 +46,9 @@ export default {
   setup() {
 
 
-    return {}
+    return {
+
+    }
   }
 }
 </script>

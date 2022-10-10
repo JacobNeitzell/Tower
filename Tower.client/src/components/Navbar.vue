@@ -11,24 +11,53 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <div class="row bg-dark py-1 px-5 text-light">
+        <div class="col-12">
+          <h2 class="text-shadow">Popular Events</h2>
+        </div>
+        <div class="col-12 text-shadow">
+          filter <i class="mdi mdi-filter"></i>
+        </div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('')">All</div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('concert')">Concert
+        </div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('convention')">
+          Convention</div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('sport')">Sport
+        </div>
+        <div class="col-2 btn btn-outline-light rounded-pill text-shadow" @click="getEventsbyType = ('digital')">Digital
+        </div>
+
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { computed, ref } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
+import { eventservice } from "../services/EventsService.js";
+import Pop from "../utils/Pop.js";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    const editable = ref('')
+
+
+    return {
+      editable,
+      events: computed(() => AppState.events.filter(e => e.type.toUpperCase().includes(editable.value.toUpperCase()))),
+      async getEventsbyType(type) {
+        try {
+          await eventservice.getEvents(type)
+        } catch (error) {
+          Pop.error(error, '[GetEventsByType]')
+        }
+      }
+
+
+
+    }
   },
   components: { Login }
 }

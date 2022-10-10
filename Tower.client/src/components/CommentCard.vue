@@ -7,11 +7,12 @@
         </div>
         <div class="col-md-8 commenttext ">
 
-          <h5 class="card-title text-shadow2">{{comments?.creator.name}}</h5>
-          <p class="card-text text-shadow ">{{comments?.body}}
+          <h5 class="card-title text-shadow2">{{comments.creator.name}}</h5>
+          <p class="card-text text-shadow ">{{comments.body}}
           </p>
-          <p class="card-text bg-dark"><small class="text-muted">{{comments?.isAttending}}</small></p>
-          <i @click="removeComments(comments.id)" class="mdi mdi-cancel selectable"></i>
+          <p class="card-text bg-dark"><a v-if="comments.creator.isAttending == true"
+              class="btn btn-success">{{comments.creator.isAttending}}</a></p>
+          <i @click.prevent="removeComments(comments.id)" class="mdi mdi-cancel selectable"></i>
         </div>
       </div>
     </div>
