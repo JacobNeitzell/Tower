@@ -1,5 +1,4 @@
 import { BadRequest, Forbidden } from "@bcwdev/auth0provider/lib/Errors.js"
-import { query } from "express"
 import { dbContext } from "../db/DbContext.js"
 
 class EventsService {
