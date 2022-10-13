@@ -6,8 +6,8 @@
         <img :src="event?.coverImg" class="card-img-top" alt="EventDetailsImg">
         <div class="card-body">
           <i class="mdi mdi-cancel bg-danger" @click="archiveEvent(event.id)"
-            v-if="event?.creator.id == account.id"></i>
-          <a class="btn btn-danger" v-else="event?.isCanceled ">Canceled</a>
+            v-if="event?.creator.id == account.id && !event?.isCanceled"></i>
+          <p class="bg-danger" v-if="event?.isCanceled ">Canceled</p>
           <h3 class="card-title text-shadow2">{{event?.name}}</h3>
           <h5 class="text-shadow">{{new
           Date(event?.startDate).toLocaleDateString('en-Us',{month:'short', day:'2-digit'})}}</h5>
@@ -90,9 +90,9 @@ export default {
 
       async archiveEvent(id) {
         try {
-
           const yes = await Pop.confirm('Are you sure you want to delete this event? ')
           if (!yes) { return }
+          debugger
           await eventservice.archiveEvent(id)
         } catch (error) {
           Pop.error(error, '[ArchiveEvent]')

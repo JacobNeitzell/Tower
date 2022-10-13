@@ -18,7 +18,8 @@ class CommentsService {
 
   async removeComments(commentId) {
     await api.delete('api/comments/' + commentId)
-    AppState.comments = AppState.comments.filter(c => c.id != comments)
+    AppState.comments = AppState.comments.filter(c => c.id != commentId)
+
   }
 
 }

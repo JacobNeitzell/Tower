@@ -3,15 +3,15 @@
     <div class="card mb-3 bg-dark" style="max-width: 540px;">
       <div class="row g-0 bg-dark">
         <div class="col-md-4 commenttext">
-          <img :src="comments.creator.picture" class="img-fluid rounded-start" alt="">
+          <img :src="comments.creator?.picture" class="img-fluid rounded-start" alt="">
         </div>
         <div class="col-md-8 commenttext ">
 
-          <h5 class="card-title text-shadow2">{{comments.creator.name}}</h5>
+          <h5 class="card-title text-shadow2">{{comments.creator?.name}}</h5>
           <p class="card-text text-shadow ">{{comments.body}}
           </p>
-          <p class="card-text bg-dark"><a v-if="comments.creator.isAttending == true"
-              class="btn btn-success">{{comments.creator.isAttending}}</a></p>
+          <p class="card-text bg-dark"><a v-if="comments.creator?.isAttending == true"
+              class="btn btn-success">{{comments.creator?.isAttending}}</a></p>
           <i @click.prevent="removeComments(comments.id)" class="mdi mdi-cancel selectable"></i>
         </div>
       </div>
@@ -32,7 +32,6 @@ import Pop from "../utils/Pop.js";
 export default {
   props: {
     comments: { type: Comment, required: true },
-    account: { type: Account, required: true }
   },
   setup() {
 
